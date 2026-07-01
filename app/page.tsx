@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { supabaseServer } from "@/lib/supabase";
 import type { Recipe, ChefCheck } from "@/lib/types";
+import TabNav from "./TabNav";
 
 export const dynamic = "force-dynamic";
 
@@ -32,18 +33,17 @@ export default async function HomePage() {
 
   return (
     <div className="home">
+      <TabNav active="home" />
+
       <div className="home-header">
         <div>
           <div className="kicker">MY RECIPE BOOK</div>
           <h1>レシピ本</h1>
         </div>
-        <Link className="upload-link" href="/upload">
-          + レシピを追加
-        </Link>
       </div>
 
       {recipes.length === 0 ? (
-        <div className="empty-state">まだレシピがありません。「+ レシピを追加」から最初の一品を。</div>
+        <div className="empty-state">まだレシピがありません。「レシピ作成」タブから最初の一品を。</div>
       ) : (
         <div className="recipe-grid">
           {recipes.map((r) => (

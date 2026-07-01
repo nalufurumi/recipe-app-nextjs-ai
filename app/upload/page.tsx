@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import type { ChefCheck, StructuredRecipe } from "@/lib/types";
+import TabNav from "../TabNav";
 
 export default function UploadPage() {
   const router = useRouter();
@@ -64,6 +65,7 @@ export default function UploadPage() {
 
   return (
     <div className="upload-page">
+      <TabNav active="upload" />
       <div className="upload-inner">
         <h1>レシピを追加</h1>
         <textarea
