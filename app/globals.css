@@ -1,26 +1,556 @@
-@import "tailwindcss";
+* { box-sizing: border-box; }
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+html, body {
+  margin: 0;
+  height: 100%;
+  background: #17130F;
+  font-family: 'Noto Sans JP', sans-serif;
+  color: #2A2521;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+a { color: inherit; text-decoration: none; }
+
+::-webkit-scrollbar { width: 0; height: 0; }
+
+/* ---------- login ---------- */
+
+.login-screen {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #17130F;
+  padding: 24px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.login-card {
+  width: 100%;
+  max-width: 360px;
+  background: #FCF9F2;
+  border-radius: 20px;
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: center;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.login-card h1 {
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 28px;
+  margin: 0;
+  color: #2A2521;
+}
+
+.login-card p {
+  margin: 0;
+  color: #7A7267;
+  font-size: 13px;
+}
+
+.login-card input {
+  border: 1px solid #E4DCCC;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 15px;
+  background: #F5EEDF;
+}
+
+.login-card button {
+  background: #2A2521;
+  color: #FCF9F2;
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.login-error {
+  color: #B23A2E;
+  font-size: 12.5px;
+}
+
+/* ---------- home (recipe list) ---------- */
+
+.home {
+  min-height: 100dvh;
+  background: #E8E1D4;
+  padding: 48px 24px 80px;
+}
+
+.home-header {
+  max-width: 960px;
+  margin: 0 auto 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.home-header h1 {
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 32px;
+  margin: 0;
+  color: #2A2521;
+}
+
+.home-header .kicker {
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: #B23A2E;
+  font-weight: 700;
+}
+
+.upload-link {
+  background: #2A2521;
+  color: #FCF9F2;
+  padding: 12px 22px;
+  border-radius: 14px;
+  font-size: 13.5px;
+  white-space: nowrap;
+}
+
+.recipe-grid {
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.recipe-card {
+  background: #FCF9F2;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 20px 40px -30px rgba(60,45,30,0.5);
+  display: block;
+}
+
+.recipe-card .kicker {
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  color: #B23A2E;
+  font-weight: 700;
+}
+
+.recipe-card h2 {
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 22px;
+  margin: 10px 0 8px;
+  color: #2A2521;
+}
+
+.recipe-card p {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.8;
+  color: #7A7267;
+  font-weight: 300;
+}
+
+.recipe-card .meta {
+  margin-top: 14px;
+  display: flex;
+  gap: 14px;
+  font-size: 11px;
+  color: #A79C89;
+}
+
+.empty-state {
+  max-width: 960px;
+  margin: 0 auto;
+  text-align: center;
+  color: #9A8F7E;
+  padding: 60px 0;
+  font-size: 14px;
+}
+
+/* ---------- upload ---------- */
+
+.upload-page {
+  min-height: 100dvh;
+  background: #E8E1D4;
+  padding: 48px 24px 80px;
+}
+
+.upload-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.upload-inner h1 {
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 28px;
+  margin: 0;
+}
+
+.upload-inner textarea {
+  width: 100%;
+  min-height: 220px;
+  border: 1px solid #E4DCCC;
+  border-radius: 14px;
+  padding: 18px;
+  font-size: 14px;
+  line-height: 1.8;
+  background: #FCF9F2;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.upload-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btn {
+  border: none;
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: #2A2521;
+  color: #FCF9F2;
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.btn-secondary {
+  background: #F5EEDF;
+  color: #2A2521;
+}
+
+.chef-check {
+  border-radius: 14px;
+  padding: 20px 22px;
+  border-left: 4px solid;
+}
+
+.chef-check.ok {
+  background: #EEF3E8;
+  border-color: #5E8A4B;
+}
+
+.chef-check.warn {
+  background: #F9EDE8;
+  border-color: #B23A2E;
+}
+
+.chef-check h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+}
+
+.chef-check ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+  font-size: 12.5px;
+  line-height: 1.9;
+  color: #6A6154;
+}
+
+.preview-card {
+  background: #FCF9F2;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.preview-card h2 {
+  font-family: 'Shippori Mincho B1', serif;
+  margin: 0 0 6px;
+}
+
+.preview-card .assumptions {
+  margin-top: 14px;
+  font-size: 12px;
+  color: #A79C89;
+}
+
+/* ---------- recipe detail (phone-style screen) ---------- */
+
+.screen {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  background: #FCF9F2;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero {
+  height: 300px;
+  flex: none;
+  position: relative;
+  background: repeating-linear-gradient(45deg, #E8E0D0 0 13px, #E1D8C6 13px 26px);
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(20,14,8,0.28) 0%, rgba(20,14,8,0) 34%, rgba(20,14,8,0.72) 100%);
+}
+
+.hero-topbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 16px 22px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1;
+}
+
+.round-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(252,249,242,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #2A2521;
+  cursor: pointer;
+}
+
+.hero-title {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 38px;
+  z-index: 1;
+}
+
+.hero-kicker {
+  font-size: 10px;
+  letter-spacing: 0.34em;
+  color: #F3C9BD;
+  font-weight: 700;
+}
+
+.hero-name {
+  margin: 8px 0 0;
+  font-family: 'Shippori Mincho B1', serif;
+  font-weight: 700;
+  font-size: 32px;
+  color: #FCF9F2;
+  line-height: 1.12;
+}
+
+.sheet {
+  flex: 1;
+  background: #FCF9F2;
+  margin-top: -24px;
+  border-radius: 24px 24px 0 0;
+  position: relative;
+}
+
+.sheet-inner {
+  padding: 22px 24px 60px;
+}
+
+.lede {
+  margin: 6px 0 0;
+  font-size: 12.5px;
+  line-height: 1.9;
+  color: #7A7267;
+  font-weight: 300;
+}
+
+.chips {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.chip {
+  flex: 1;
+  background: #F5EEDF;
+  border-radius: 12px;
+  padding: 12px 0;
+  text-align: center;
+}
+
+.chip-label {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: #A79C89;
+  font-weight: 700;
+}
+
+.chip-value {
+  margin-top: 3px;
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 16px;
+  color: #2A2521;
+}
+
+.segmented {
+  display: flex;
+  gap: 4px;
+  margin-top: 22px;
+  background: #EFE7D6;
+  border-radius: 12px;
+  padding: 4px;
+}
+
+.seg-btn {
+  flex: 1;
+  border: none;
+  cursor: pointer;
+  border-radius: 9px;
+  padding: 9px 0;
+  font-size: 13px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 400;
+  background: transparent;
+  color: #9A8F7E;
+  transition: all .18s ease;
+}
+
+.seg-btn.active {
+  font-weight: 700;
+  background: #FCF9F2;
+  color: #2A2521;
+  box-shadow: 0 2px 6px -3px rgba(60,45,30,0.4);
+}
+
+.panel.hidden { display: none; }
+
+.hint {
+  font-size: 11px;
+  color: #A79C89;
+  margin: 22px 0 14px;
+}
+
+.group { margin-bottom: 20px; }
+.group:first-child { margin-top: 0; }
+
+.group-name {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: #B23A2E;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.item-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px dotted #E0D7C6;
+  cursor: pointer;
+}
+
+.item-dot {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid #D2C7B2;
+  background: transparent;
+  color: #FCF9F2;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-row.checked .item-dot {
+  border: none;
+  background: #B23A2E;
+}
+
+.item-name {
+  flex: 1;
+  font-size: 13.5px;
+  color: #3A342D;
+}
+
+.item-row.checked .item-name {
+  color: #B4AA9A;
+  text-decoration: line-through;
+}
+
+.item-qty {
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 13px;
+  color: #8A8072;
+  white-space: nowrap;
+}
+
+.step {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.step-num {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #B23A2E;
+  color: #FCF9F2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+}
+
+.step-title {
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #2A2521;
+}
+
+.step-body {
+  margin: 5px 0 0;
+  font-size: 12.5px;
+  line-height: 1.9;
+  color: #7A7267;
+  font-weight: 300;
+}
+
+.panel[data-panel="tips"] { margin-top: 22px; }
+
+.note {
+  background: #F5EEDF;
+  border-left: 2px solid #B23A2E;
+  border-radius: 0 12px 12px 0;
+  padding: 18px 20px;
+  margin-bottom: 16px;
+}
+
+.note-title {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: #B23A2E;
+  font-weight: 700;
+}
+
+.note ul {
+  margin: 10px 0 0;
+  padding-left: 16px;
+  font-size: 12.5px;
+  line-height: 1.95;
+  color: #6A6154;
+  font-weight: 300;
 }

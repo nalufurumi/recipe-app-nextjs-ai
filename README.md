@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# レシピ本
 
-## Getting Started
+断片的なレシピ文章を貼り付けると、AIが補完して構造化し、シェフAIが実際に作れるかをチェックしてから保存できる、自分専用のレシピ本アプリ。
 
-First, run the development server:
+## セットアップ
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### 1. Supabase プロジェクトを作成
+
+1. https://supabase.com でプロジェクトを新規作成（無料枠でOK）
+2. ダッシュボードの SQL Editor で `supabase/schema.sql` の内容を実行し、`recipes` テーブルを作成
+3. Project Settings → API から `Project URL` と `service_role` キーを取得
+
+### 2. Anthropic API キーを用意
+
+https://console.anthropic.com でAPIキーを発行する。
+
+### 3. 環境変数を設定
+
+`.env.local.example` を `.env.local` にコピーして値を埋める。
+
+```
+ANTHROPIC_API_KEY=      # Anthropic APIキー
+SUPABASE_URL=           # SupabaseのProject URL
+SUPABASE_SERVICE_ROLE_KEY=  # Supabaseのservice roleキー
+APP_PASSWORD=           # アプリ全体にかける簡易パスワード
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 4. ローカル起動
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+http://localhost:3000 を開き、`APP_PASSWORD` に設定したパスワードでログインする。
 
-## Learn More
+## 使い方
 
-To learn more about Next.js, take a look at the following resources:
+1. 「+ レシピを追加」からレシピ文章（断片的でOK）を貼り付ける
+2. 「AIで完成させる」を押すと、AIが欠けている情報を補完し、続けてシェフAIが実現可能性をチェックする
+3. 内容を確認して「レシピ本に保存する」を押すと、ホーム画面のレシピ一覧に追加される
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## デプロイ (Vercel)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Vercelにプロジェクトをインポートし、上記と同じ環境変数（`ANTHROPIC_API_KEY` / `SUPABASE_URL` / `SUPABASE_SERVICE_ROLE_KEY` / `APP_PASSWORD`）を設定してデプロイする。
