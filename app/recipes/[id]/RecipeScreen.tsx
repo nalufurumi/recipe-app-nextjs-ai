@@ -6,7 +6,13 @@ import type { Recipe } from "@/lib/types";
 
 type Tab = "ing" | "steps" | "tips";
 
-export default function RecipeScreen({ recipe }: { recipe: Recipe }) {
+export default function RecipeScreen({
+  recipe,
+  editable = false,
+}: {
+  recipe: Recipe;
+  editable?: boolean;
+}) {
   const router = useRouter();
   const [tab, setTab] = useState<Tab>("ing");
   const [checked, setChecked] = useState<Record<string, boolean>>({});
@@ -50,6 +56,15 @@ export default function RecipeScreen({ recipe }: { recipe: Recipe }) {
           <button className="round-btn" onClick={() => router.push("/")} aria-label="戻る">
             ‹
           </button>
+          {editable && (
+            <button
+              className="round-btn"
+              onClick={() => router.push(`/recipes/${recipe.id}/edit`)}
+              aria-label="編集"
+            >
+              ✎
+            </button>
+          )}
         </div>
         <div className="hero-title">
           <div className="hero-kicker">RECIPE</div>

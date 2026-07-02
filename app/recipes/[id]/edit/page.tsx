@@ -1,8 +1,8 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { supabaseServer } from "@/lib/supabase";
 import { isAuthenticated } from "@/lib/auth";
 import type { Recipe, ChefCheck } from "@/lib/types";
-import RecipeScreen from "./RecipeScreen";
+import EditScreen from "./EditScreen";
 
 export const dynamic = "force-dynamic";
 
@@ -24,12 +24,17 @@ function rowToRecipe(row: Record<string, unknown>): Recipe {
   };
 }
 
-export default async function RecipeDetailPage({
+export default async function RecipeEditPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+
+  if (!(await isAuthenticated())) {
+    redirect(`/recipes/${id}`);
+  }
+
   const { data, error } = await supabaseServer()
     .from("recipes")
     .select("*")
@@ -38,7 +43,5 @@ export default async function RecipeDetailPage({
 
   if (error || !data) notFound();
 
-  const editable = await isAuthenticated();
-
-  return <RecipeScreen recipe={rowToRecipe(data)} editable={editable} />;
+  return <EditScreen recipe={rowToRecipe(data)} />;
 }

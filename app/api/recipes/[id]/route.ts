@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 import { supabaseServer } from "@/lib/supabase";
-import type { Recipe, ChefCheck } from "@/lib/types";
+import { isAuthenticated } from "@/lib/auth";
+import { logError } from "@/lib/errorLog";
+import type { Recipe, StructuredRecipe, ChefCheck } from "@/lib/types";
 
 function rowToRecipe(row: Record<string, unknown>): Recipe {
   return {
@@ -32,6 +35,40 @@ export async function GET(
     .single();
 
   if (error) return NextResponse.json({ error: error.message }, { status: 404 });
+  return NextResponse.json({ recipe: rowToRecipe(data) });
+}
+
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  if (!(await isAuthenticated())) {
+    return NextResponse.json({ error: "unauthorized" }, { status: 403 });
+  }
+
+  const { id } = await params;
+  const body = (await request.json()) as { recipe: StructuredRecipe };
+
+  const { data, error } = await supabaseServer()
+    .from("recipes")
+    .update({
+      title: body.recipe.title,
+      description: body.recipe.description,
+      servings: body.recipe.servings,
+      time: body.recipe.time,
+      level: body.recipe.level,
+      ingredient_groups: body.recipe.ingredientGroups,
+      steps: body.recipe.steps,
+      tips: body.recipe.tips,
+    })
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) {
+    await logError("PUT /api/recipes/[id]", error, { id, body });
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
   return NextResponse.json({ recipe: rowToRecipe(data) });
 }
 

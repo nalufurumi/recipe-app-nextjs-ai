@@ -278,6 +278,153 @@ a { color: inherit; text-decoration: none; }
   color: #A79C89;
 }
 
+/* ---------- edit form ---------- */
+
+.edit-mode-tabs {
+  display: flex;
+  gap: 4px;
+  background: #EFE7D6;
+  border-radius: 12px;
+  padding: 4px;
+}
+
+.edit-mode-tab {
+  flex: 1;
+  border: none;
+  cursor: pointer;
+  border-radius: 9px;
+  padding: 11px 0;
+  font-size: 13px;
+  font-weight: 500;
+  background: transparent;
+  color: #9A8F7E;
+}
+
+.edit-mode-tab.active {
+  font-weight: 700;
+  background: #FCF9F2;
+  color: #2A2521;
+  box-shadow: 0 2px 6px -3px rgba(60,45,30,0.4);
+}
+
+.edit-mode-tab:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: #A79C89;
+  font-weight: 700;
+}
+
+.field input,
+.field textarea {
+  border: 1px solid #E4DCCC;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 13.5px;
+  background: #F5EEDF;
+  font-family: inherit;
+  color: #2A2521;
+}
+
+.field textarea {
+  resize: vertical;
+  line-height: 1.8;
+}
+
+.field-row {
+  display: flex;
+  gap: 12px;
+}
+
+.field-row .field {
+  flex: 1;
+}
+
+.edit-section-title {
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 16px;
+  margin: 0 0 4px;
+  color: #2A2521;
+}
+
+.edit-group,
+.edit-step,
+.edit-tip {
+  background: #F5EEDF;
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edit-group-header,
+.edit-row-header {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.edit-group-header input,
+.edit-row-header input {
+  flex: 1;
+}
+
+.edit-item-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.edit-item-row input:first-child {
+  flex: 1;
+}
+
+.edit-item-row input:last-of-type {
+  width: 96px;
+  flex: none;
+}
+
+.icon-btn {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background: #EFE7D6;
+  color: #B23A2E;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-btn {
+  border: 1.5px dashed #D2C7B2;
+  background: transparent;
+  color: #8A8072;
+  border-radius: 12px;
+  padding: 10px;
+  font-size: 12.5px;
+  cursor: pointer;
+}
+
+.edit-error {
+  color: #B23A2E;
+  font-size: 12.5px;
+}
+
 .upload-actions {
   display: flex;
   gap: 12px;
