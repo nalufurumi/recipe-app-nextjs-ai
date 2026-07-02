@@ -45,8 +45,16 @@ if (!ANTHROPIC_API_KEY || !SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
 }
 
 const anthropic = new Anthropic({ apiKey: ANTHROPIC_API_KEY });
+
+// This script only does REST reads/writes (no channels/subscriptions), so
+// realtime is never actually used. Supplying a transport stub skips
+// supabase-js's eager WebSocket-environment check, which otherwise throws
+// on Node < 22 (no native WebSocket global).
+class NoopWebSocketTransport {}
+
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
   auth: { persistSession: false },
+  realtime: { transport: NoopWebSocketTransport },
 });
 
 const CLASSIFY_SCHEMA = {
