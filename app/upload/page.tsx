@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { ChefCheck, StructuredRecipe } from "@/lib/types";
 import TabNav from "../TabNav";
@@ -13,6 +13,13 @@ export default function UploadPage() {
   const [check, setCheck] = useState<ChefCheck | null>(null);
   const [stage, setStage] = useState<"idle" | "completing" | "checking" | "saving" | "saved">("idle");
   const [error, setError] = useState("");
+  const [savedId, setSavedId] = useState<string | null>(null);
+  const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  function goToSavedRecipe(id: string) {
+    if (saveTimeoutRef.current) clearTimeout(saveTimeoutRef.current);
+    router.push(`/recipes/${id}`);
+  }
 
   async function handleComplete() {
     setError("");
@@ -67,7 +74,8 @@ export default function UploadPage() {
       }
       const { recipe: saved } = await res.json();
       setStage("saved");
-      setTimeout(() => router.push(`/recipes/${saved.id}`), 800);
+      setSavedId(saved.id);
+      saveTimeoutRef.current = setTimeout(() => goToSavedRecipe(saved.id), 700);
     } catch (e) {
       setError(e instanceof Error ? e.message : "エラーが発生しました");
       setStage("idle");
@@ -101,14 +109,14 @@ export default function UploadPage() {
         {stage === "completing" && (
           <div className="nalu-panel">
             <Nalu state="thinking" size={76} bob />
-            <p>Naluがレシピを考え中...</p>
+            <p>なるしぇふが考え中...</p>
           </div>
         )}
 
         {stage === "checking" && (
           <div className="nalu-panel">
             <Nalu state="checking" size={76} bob />
-            <p>シェフAIのNaluがチェック中...</p>
+            <p>なるしぇふがチェック中...</p>
           </div>
         )}
 
@@ -167,13 +175,14 @@ export default function UploadPage() {
           </div>
         )}
 
-        {stage === "saved" && (
-          <div className="nalu-panel">
-            <Nalu state="happy" size={76} />
-            <p>保存できました！</p>
-          </div>
-        )}
       </div>
+
+      {stage === "saved" && savedId && (
+        <div className="nalu-overlay" onClick={() => goToSavedRecipe(savedId)}>
+          <Nalu state="happy" size={140} />
+          <p>なるしぇふ: 保存できました！</p>
+        </div>
+      )}
     </div>
   );
 }

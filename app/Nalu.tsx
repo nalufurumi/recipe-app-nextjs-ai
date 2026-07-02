@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+// Brand name: 「みんなのなる」— displayed to users as 「なるしぇふ」. Internal
+// file/component names keep the "Nalu" identifier.
 const NALU_SRC = {
   normal: "/nalu/nalu-normal.png",
   thinking: "/nalu/nalu-thinking.png",
