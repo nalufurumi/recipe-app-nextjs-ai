@@ -203,32 +203,28 @@ a { color: inherit; text-decoration: none; }
 
 @media (min-width: 768px) {
   .home-screen {
-    max-width: 1040px;
+    max-width: min(94vw, 1200px);
   }
 
   .home-hero,
-  .home-list-wrap {
-    padding-left: 48px;
-    padding-right: 48px;
-  }
-
+  .home-list-wrap,
   .app-tabnav-wrap {
-    padding-left: 48px;
-    padding-right: 48px;
+    padding-left: clamp(24px, 4vw, 64px);
+    padding-right: clamp(24px, 4vw, 64px);
   }
 
   .app-tabnav-wrap .tab-nav {
-    max-width: 320px;
+    max-width: min(40%, 320px);
   }
 
   .home-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: clamp(14px, 2vw, 24px);
   }
 
   .empty-state {
-    max-width: 480px;
+    max-width: min(80%, 480px);
     margin: 0 auto;
   }
 }
@@ -297,32 +293,31 @@ a { color: inherit; text-decoration: none; }
 
 @media (min-width: 768px) {
   .upload-screen {
-    max-width: 960px;
+    max-width: min(94vw, 1200px);
   }
 
   .upload-hero {
-    padding: 40px 40px 28px;
+    padding: clamp(28px, 4vw, 48px) clamp(24px, 5vw, 64px) clamp(20px, 3vw, 32px);
   }
 
-  .upload-hero-top {
-    max-width: 680px;
+  .upload-hero-top,
+  .upload-inner {
+    max-width: min(80%, 720px);
     margin: 0 auto;
+    width: min(80%, 720px);
   }
 
   .upload-hero-title {
-    font-size: 34px;
+    font-size: clamp(28px, 2.6vw, 36px);
   }
 
   .upload-inner {
-    max-width: 680px;
-    margin: 0 auto;
-    width: 100%;
-    padding: 32px 0 100px;
-    gap: 24px;
+    padding: clamp(24px, 4vw, 40px) 0 100px;
+    gap: clamp(18px, 2vw, 28px);
   }
 
   .upload-inner textarea {
-    min-height: 280px;
+    min-height: clamp(220px, 30vw, 300px);
   }
 }
 
@@ -759,9 +754,9 @@ a { color: inherit; text-decoration: none; }
 
 @media (min-width: 768px) {
   .screen {
-    max-width: 1040px;
+    max-width: min(94vw, 1200px);
     display: grid;
-    grid-template-columns: minmax(320px, 420px) 1fr;
+    grid-template-columns: minmax(280px, 34%) 1fr;
     align-items: start;
   }
 
@@ -781,7 +776,7 @@ a { color: inherit; text-decoration: none; }
   }
 
   .sheet-inner {
-    padding: 40px 48px 40px;
+    padding: clamp(24px, 4vw, 48px);
   }
 
   .cta-bar {
@@ -793,7 +788,7 @@ a { color: inherit; text-decoration: none; }
     width: auto;
     max-width: none;
     background: none;
-    padding: 0 48px 40px;
+    padding: 0 clamp(24px, 4vw, 48px) clamp(24px, 4vw, 40px);
   }
 }
 
