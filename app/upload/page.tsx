@@ -54,7 +54,10 @@ export default function UploadPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ recipe, rawInput: rawText, chefCheck: check }),
       });
-      if (!res.ok) throw new Error("保存に失敗しました");
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        throw new Error(body?.error ? `保存に失敗しました: ${body.error}` : "保存に失敗しました");
+      }
       const { recipe: saved } = await res.json();
       router.push(`/recipes/${saved.id}`);
     } catch (e) {
