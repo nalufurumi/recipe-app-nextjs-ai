@@ -102,7 +102,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .home-screen {
-  max-width: 480px;
+  width: min(94%, 1400px);
   margin: 0 auto;
   min-height: 100dvh;
   background: #FCF9F2;
@@ -113,7 +113,7 @@ a { color: inherit; text-decoration: none; }
 .home-hero {
   flex: none;
   background: #2A2521;
-  padding: 30px 24px 22px;
+  padding: clamp(24px, 5vw, 32px) clamp(20px, 4vw, 48px) clamp(18px, 3vw, 24px);
 }
 
 .home-hero-top {
@@ -130,14 +130,14 @@ a { color: inherit; text-decoration: none; }
   margin: 8px 0 0;
   font-family: 'Shippori Mincho B1', serif;
   font-weight: 700;
-  font-size: 30px;
+  font-size: clamp(1.5rem, 4vw, 2rem);
   color: #FCF9F2;
   line-height: 1.1;
 }
 
 .app-tabnav-wrap {
   flex: none;
-  padding: 18px 24px 0;
+  padding: clamp(14px, 2vw, 18px) clamp(20px, 4vw, 48px) 0;
 }
 
 .app-tabnav-wrap .tab-nav {
@@ -147,13 +147,13 @@ a { color: inherit; text-decoration: none; }
 
 .home-list-wrap {
   flex: 1;
-  padding: 16px 24px 100px;
+  padding: clamp(14px, 2vw, 18px) clamp(20px, 4vw, 48px) 100px;
 }
 
 .home-list {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(14px, 2vw, 24px);
 }
 
 .home-card {
@@ -191,6 +191,8 @@ a { color: inherit; text-decoration: none; }
 }
 
 .empty-state {
+  max-width: min(80%, 480px);
+  margin: 0 auto;
   text-align: center;
   color: #9A8F7E;
   padding: 60px 0 40px;
@@ -202,37 +204,15 @@ a { color: inherit; text-decoration: none; }
 }
 
 @media (min-width: 768px) {
-  .home-screen {
-    max-width: min(94vw, 1400px);
-  }
-
-  .home-hero,
-  .home-list-wrap,
-  .app-tabnav-wrap {
-    padding-left: clamp(24px, 4vw, 64px);
-    padding-right: clamp(24px, 4vw, 64px);
-  }
-
   .app-tabnav-wrap .tab-nav {
     max-width: min(40%, 320px);
-  }
-
-  .home-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: clamp(14px, 2vw, 24px);
-  }
-
-  .empty-state {
-    max-width: min(80%, 480px);
-    margin: 0 auto;
   }
 }
 
 /* ---------- upload ---------- */
 
 .upload-screen {
-  max-width: 480px;
+  width: min(94%, 1400px);
   margin: 0 auto;
   min-height: 100dvh;
   background: #FCF9F2;
@@ -243,10 +223,12 @@ a { color: inherit; text-decoration: none; }
 .upload-hero {
   flex: none;
   background: #2A2521;
-  padding: 30px 24px 22px;
+  padding: clamp(24px, 5vw, 32px) clamp(20px, 4vw, 48px) clamp(18px, 3vw, 24px);
 }
 
 .upload-hero-top {
+  width: min(100%, 720px);
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -260,22 +242,24 @@ a { color: inherit; text-decoration: none; }
   margin: 8px 0 0;
   font-family: 'Shippori Mincho B1', serif;
   font-weight: 700;
-  font-size: 30px;
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
   color: #FCF9F2;
   line-height: 1.1;
 }
 
 .upload-inner {
+  width: min(100%, 720px);
+  margin: 0 auto;
   flex: 1;
-  padding: 20px 24px 100px;
+  padding: clamp(20px, 4vw, 40px) clamp(20px, 4vw, 48px) 100px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: clamp(18px, 2vw, 28px);
 }
 
 .upload-inner textarea {
   width: 100%;
-  min-height: 200px;
+  min-height: clamp(200px, 22vw, 280px);
   border: 1px solid #E4DCCC;
   border-radius: 14px;
   padding: 16px;
@@ -289,36 +273,6 @@ a { color: inherit; text-decoration: none; }
 
 .upload-inner textarea::placeholder {
   color: #A79C89;
-}
-
-@media (min-width: 768px) {
-  .upload-screen {
-    max-width: min(94vw, 1400px);
-  }
-
-  .upload-hero {
-    padding: clamp(28px, 4vw, 48px) clamp(24px, 5vw, 64px) clamp(20px, 3vw, 32px);
-  }
-
-  .upload-hero-top,
-  .upload-inner {
-    max-width: min(80%, 720px);
-    margin: 0 auto;
-    width: min(80%, 720px);
-  }
-
-  .upload-hero-title {
-    font-size: clamp(28px, 2.6vw, 36px);
-  }
-
-  .upload-inner {
-    padding: clamp(24px, 4vw, 40px) 0 100px;
-    gap: clamp(18px, 2vw, 28px);
-  }
-
-  .upload-inner textarea {
-    min-height: clamp(200px, 22vw, 280px);
-  }
 }
 
 .upload-actions {
@@ -399,7 +353,7 @@ a { color: inherit; text-decoration: none; }
 /* ---------- recipe detail (phone-style screen) ---------- */
 
 .screen {
-  max-width: 480px;
+  width: min(94%, 1400px);
   margin: 0 auto;
   min-height: 100dvh;
   background: #FCF9F2;
@@ -467,7 +421,7 @@ a { color: inherit; text-decoration: none; }
   margin: 8px 0 0;
   font-family: 'Shippori Mincho B1', serif;
   font-weight: 700;
-  font-size: 32px;
+  font-size: clamp(1.75rem, 3.4vw, 2.5rem);
   color: #FCF9F2;
   line-height: 1.12;
 }
@@ -481,7 +435,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .sheet-inner {
-  padding: 22px 24px 120px;
+  padding: clamp(20px, 4vw, 24px) clamp(20px, 4vw, 24px) 120px;
 }
 
 .lede {
@@ -700,9 +654,8 @@ a { color: inherit; text-decoration: none; }
   left: 50%;
   bottom: 0;
   transform: translateX(-50%);
-  width: 100%;
-  max-width: 480px;
-  padding: 16px 24px 30px;
+  width: min(94%, 1400px);
+  padding: 16px clamp(20px, 4vw, 24px) 30px;
   background: linear-gradient(180deg, rgba(252,249,242,0) 0%, #FCF9F2 26%);
 }
 
@@ -754,7 +707,6 @@ a { color: inherit; text-decoration: none; }
 
 @media (min-width: 768px) {
   .screen {
-    max-width: min(94vw, 1400px);
     display: grid;
     grid-template-columns: minmax(280px, 34%) 1fr;
     align-items: start;
