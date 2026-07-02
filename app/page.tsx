@@ -33,7 +33,7 @@ export default async function HomePage() {
   const recipes = (data ?? []).map(rowToRecipe);
 
   return (
-    <div className="home-screen">
+    <div className="home-screen page-container">
       <div className="home-hero">
         <div className="home-hero-top">
           <div>

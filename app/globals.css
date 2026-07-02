@@ -71,6 +71,16 @@ a { color: inherit; text-decoration: none; }
   font-size: 12.5px;
 }
 
+/* ---------- shared page container ---------- */
+/* Single source of truth for page width + centering. Every page's outer
+   screen wraps its hero/tabnav/content directly in this box so their left
+   edges always line up — no per-section max-width or margin:auto. */
+
+.page-container {
+  width: min(94%, 1400px);
+  margin: 0 auto;
+}
+
 /* ---------- home (recipe list) ---------- */
 
 /* ---------- tab nav ---------- */
@@ -102,8 +112,6 @@ a { color: inherit; text-decoration: none; }
 }
 
 .home-screen {
-  width: min(94%, 1400px);
-  margin: 0 auto;
   min-height: 100dvh;
   background: #FCF9F2;
   display: flex;
@@ -136,7 +144,6 @@ a { color: inherit; text-decoration: none; }
 }
 
 .app-tabnav-wrap {
-  width: 100%;
   flex: none;
   padding: clamp(14px, 2vw, 18px) clamp(20px, 4vw, 48px) 0;
 }
@@ -214,25 +221,19 @@ a { color: inherit; text-decoration: none; }
 /* ---------- upload ---------- */
 
 .upload-screen {
-  width: min(94%, 1400px);
-  margin: 0 auto;
   min-height: 100dvh;
   background: #FCF9F2;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .upload-hero {
-  width: 100%;
   flex: none;
   background: #2A2521;
   padding: clamp(24px, 5vw, 32px) clamp(20px, 4vw, 48px) clamp(18px, 3vw, 24px);
 }
 
 .upload-hero-top {
-  width: min(100%, 720px);
-  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -252,8 +253,6 @@ a { color: inherit; text-decoration: none; }
 }
 
 .upload-inner {
-  width: min(100%, 720px);
-  margin: 0 auto;
   flex: 1;
   padding: clamp(20px, 4vw, 40px) clamp(20px, 4vw, 48px) 100px;
   display: flex;
@@ -357,8 +356,6 @@ a { color: inherit; text-decoration: none; }
 /* ---------- recipe detail (phone-style screen) ---------- */
 
 .screen {
-  width: min(94%, 1400px);
-  margin: 0 auto;
   min-height: 100dvh;
   background: #FCF9F2;
   position: relative;

@@ -83,7 +83,7 @@ export default function UploadPage() {
   }
 
   return (
-    <div className="upload-screen">
+    <div className="upload-screen page-container">
       <div className="upload-hero">
         <div className="upload-hero-top">
           <div>

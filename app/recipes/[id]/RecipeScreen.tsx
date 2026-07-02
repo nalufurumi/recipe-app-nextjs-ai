@@ -44,7 +44,7 @@ export default function RecipeScreen({ recipe }: { recipe: Recipe }) {
   }
 
   return (
-    <div className="screen">
+    <div className="screen page-container">
       <div className="hero">
         <div className="hero-topbar">
           <button className="round-btn" onClick={() => router.push("/")} aria-label="戻る">
