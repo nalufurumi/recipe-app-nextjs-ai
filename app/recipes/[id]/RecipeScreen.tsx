@@ -2,9 +2,24 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import type { Recipe } from "@/lib/types";
+import type { IngredientItem, Recipe } from "@/lib/types";
 
 type Tab = "ing" | "steps" | "tips";
+
+function parseServingsNumber(text: string): number | null {
+  const match = text.match(/\d+(\.\d+)?/);
+  if (!match) return null;
+  const n = parseFloat(match[0]);
+  return Number.isFinite(n) && n > 0 ? n : null;
+}
+
+function displayQty(item: IngredientItem, baseServings: number | null, servings: number): string {
+  if (!item.scalable || item.baseAmount == null || baseServings === null) return item.qty;
+  const scaled = item.baseAmount * (servings / baseServings);
+  const rounded = Math.round(scaled * 10) / 10;
+  const numText = Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1);
+  return `${numText}${item.unit ?? ""}`;
+}
 
 export default function RecipeScreen({
   recipe,
@@ -19,6 +34,9 @@ export default function RecipeScreen({
   const [cooking, setCooking] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  const baseServings = parseServingsNumber(recipe.servings);
+  const [servings, setServings] = useState(baseServings ?? 1);
 
   const lastStep = recipe.steps.length - 1;
   const isFinalStep = cooking && stepIndex >= lastStep;
@@ -105,6 +123,30 @@ export default function RecipeScreen({
 
           <div className={`panel ${tab !== "ing" ? "hidden" : ""}`}>
             <div className="hint">タップでチェックできます</div>
+
+            {baseServings !== null && (
+              <div className="servings-stepper">
+                <span className="servings-stepper-label">人数</span>
+                <div className="servings-stepper-control">
+                  <button
+                    className="stepper-btn"
+                    onClick={() => setServings((s) => Math.max(1, s - 1))}
+                    aria-label="人数を減らす"
+                  >
+                    −
+                  </button>
+                  <span className="servings-stepper-value">{servings}人前</span>
+                  <button
+                    className="stepper-btn"
+                    onClick={() => setServings((s) => Math.min(20, s + 1))}
+                    aria-label="人数を増やす"
+                  >
+                    ＋
+                  </button>
+                </div>
+              </div>
+            )}
+
             {recipe.ingredientGroups.map((group) => (
               <div className="group" key={group.name}>
                 <div className="group-name">{group.name}</div>
@@ -118,7 +160,7 @@ export default function RecipeScreen({
                     >
                       <div className="item-dot">{on ? "✓" : ""}</div>
                       <div className="item-name">{item.name}</div>
-                      <div className="item-qty">{item.qty}</div>
+                      <div className="item-qty">{displayQty(item, baseServings, servings)}</div>
                     </div>
                   );
                 })}
