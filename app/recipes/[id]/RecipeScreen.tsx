@@ -79,6 +79,12 @@ export default function RecipeScreen({
 
   return (
     <div className="screen page-container">
+      {cooking && !celebrating && (
+        <div className="nalu-preload" aria-hidden="true">
+          <Nalu state="happy" size={160} />
+        </div>
+      )}
+
       <div className="hero">
         <div className="hero-topbar">
           <button className="round-btn" onClick={() => router.push("/")} aria-label="戻る">
