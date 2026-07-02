@@ -87,7 +87,7 @@ export default function RecipeScreen({
 
       <div className="hero">
         <div className="hero-topbar">
-          <button className="round-btn" onClick={() => router.push("/")} aria-label="戻る">
+          <button className="round-btn" onClick={() => router.push("/recipes")} aria-label="戻る">
             ‹
           </button>
           {editable && (

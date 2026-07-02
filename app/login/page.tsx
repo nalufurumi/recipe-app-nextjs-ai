@@ -34,7 +34,7 @@ function LoginForm() {
       setError("パスワードが違います");
       return;
     }
-    router.push(searchParams.get("next") || "/");
+    router.push(searchParams.get("next") || "/recipes");
     router.refresh();
   }
 

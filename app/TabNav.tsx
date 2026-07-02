@@ -9,7 +9,7 @@ export default function TabNav({
 }) {
   return (
     <div className="tab-nav">
-      <Link href="/" className={`tab-nav-item ${active === "home" ? "active" : ""}`}>
+      <Link href="/recipes" className={`tab-nav-item ${active === "home" ? "active" : ""}`}>
         レシピ
       </Link>
       <Link
