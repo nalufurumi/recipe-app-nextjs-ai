@@ -25,7 +25,10 @@ export default function UploadPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ rawText }),
       });
-      if (!draftRes.ok) throw new Error("レシピの補完に失敗しました");
+      if (!draftRes.ok) {
+        const body = await draftRes.json().catch(() => null);
+        throw new Error(body?.error ? `レシピの補完に失敗しました: ${body.error}` : "レシピの補完に失敗しました");
+      }
       const { recipe: completed } = await draftRes.json();
       setRecipe(completed);
 
@@ -35,7 +38,10 @@ export default function UploadPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(completed),
       });
-      if (!checkRes.ok) throw new Error("シェフAIのチェックに失敗しました");
+      if (!checkRes.ok) {
+        const body = await checkRes.json().catch(() => null);
+        throw new Error(body?.error ? `シェフAIのチェックに失敗しました: ${body.error}` : "シェフAIのチェックに失敗しました");
+      }
       const { chefCheck: result } = await checkRes.json();
       setCheck(result);
     } catch (e) {

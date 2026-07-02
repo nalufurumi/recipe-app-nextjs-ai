@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { supabaseServer } from "@/lib/supabase";
+import { logError } from "@/lib/errorLog";
 import type { Recipe, StructuredRecipe, ChefCheck } from "@/lib/types";
 
 function rowToRecipe(row: Record<string, unknown>): Recipe {
@@ -27,7 +28,10 @@ export async function GET() {
     .select("*")
     .order("created_at", { ascending: false });
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  if (error) {
+    await logError("GET /api/recipes", error);
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
   return NextResponse.json({ recipes: (data ?? []).map(rowToRecipe) });
 }
 
@@ -56,7 +60,7 @@ export async function POST(request: NextRequest) {
     .single();
 
   if (error) {
-    console.error("POST /api/recipes insert failed:", error);
+    await logError("POST /api/recipes", error, { body });
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
   return NextResponse.json({ recipe: rowToRecipe(data) });
