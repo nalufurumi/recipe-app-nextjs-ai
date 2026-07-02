@@ -297,21 +297,32 @@ a { color: inherit; text-decoration: none; }
 
 @media (min-width: 768px) {
   .upload-screen {
-    max-width: 720px;
+    max-width: 960px;
   }
 
   .upload-hero {
-    padding-left: 56px;
-    padding-right: 56px;
+    padding: 40px 40px 28px;
+  }
+
+  .upload-hero-top {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .upload-hero-title {
+    font-size: 34px;
   }
 
   .upload-inner {
-    padding: 32px 56px 100px;
+    max-width: 680px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 32px 0 100px;
     gap: 24px;
   }
 
   .upload-inner textarea {
-    min-height: 260px;
+    min-height: 280px;
   }
 }
 
