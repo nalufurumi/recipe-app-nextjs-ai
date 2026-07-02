@@ -11,7 +11,7 @@ export default function UploadPage() {
   const [rawText, setRawText] = useState("");
   const [recipe, setRecipe] = useState<StructuredRecipe | null>(null);
   const [check, setCheck] = useState<ChefCheck | null>(null);
-  const [stage, setStage] = useState<"idle" | "completing" | "checking" | "saving">("idle");
+  const [stage, setStage] = useState<"idle" | "completing" | "checking" | "saving" | "saved">("idle");
   const [error, setError] = useState("");
 
   async function handleComplete() {
@@ -66,7 +66,8 @@ export default function UploadPage() {
         throw new Error(body?.error ? `保存に失敗しました: ${body.error}` : "保存に失敗しました");
       }
       const { recipe: saved } = await res.json();
-      router.push(`/recipes/${saved.id}`);
+      setStage("saved");
+      setTimeout(() => router.push(`/recipes/${saved.id}`), 800);
     } catch (e) {
       setError(e instanceof Error ? e.message : "エラーが発生しました");
       setStage("idle");
@@ -104,7 +105,19 @@ export default function UploadPage() {
           </div>
         )}
 
-        {error && <div className="chef-check warn"><h3>{error}</h3></div>}
+        {stage === "checking" && (
+          <div className="nalu-panel">
+            <Nalu state="checking" size={76} bob />
+            <p>シェフAIのNaluがチェック中...</p>
+          </div>
+        )}
+
+        {error && (
+          <div className="chef-check warn error-with-nalu">
+            <Nalu state="error" size={48} />
+            <h3>{error}</h3>
+          </div>
+        )}
 
         {recipe && (
           <div className="preview-card">
@@ -125,7 +138,10 @@ export default function UploadPage() {
 
         {check && (
           <div className={`chef-check ${check.feasible ? "ok" : "warn"}`}>
-            <h3>{check.feasible ? "シェフAI: このレシピは作れます" : "シェフAI: 要確認"}</h3>
+            <h3 className="chef-check-title">
+              <Nalu state="avatarOk" size={32} />
+              {check.feasible ? "シェフAI: このレシピは作れます" : "シェフAI: 要確認"}
+            </h3>
             {check.issues.length > 0 && (
               <ul>
                 {check.issues.map((issue, i) => (
@@ -146,8 +162,15 @@ export default function UploadPage() {
         {recipe && (
           <div className="upload-actions">
             <button className="btn btn-primary" onClick={handleSave} disabled={stage !== "idle"}>
-              {stage === "saving" ? "保存中..." : "レシピ本に保存する"}
+              {stage === "saving" ? "保存中..." : stage === "saved" ? "保存しました！" : "レシピ本に保存する"}
             </button>
+          </div>
+        )}
+
+        {stage === "saved" && (
+          <div className="nalu-panel">
+            <Nalu state="happy" size={76} />
+            <p>保存できました！</p>
           </div>
         )}
       </div>

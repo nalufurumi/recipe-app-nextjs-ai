@@ -779,3 +779,19 @@ a { color: inherit; text-decoration: none; }
   color: #7A7267;
   font-weight: 300;
 }
+
+.error-with-nalu {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.error-with-nalu h3 {
+  margin: 0;
+}
+
+.chef-check-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
