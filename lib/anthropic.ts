@@ -60,7 +60,7 @@ const RECIPE_SCHEMA: Anthropic.Tool.InputSchema = {
                   description: "scalableがtrueの場合の単位(例: 'g' '本' '個' 'ml' '大さじ')。falseの場合はnull",
                 },
               },
-              required: ["id", "name", "qty", "scalable", "baseAmount", "unit"],
+              required: ["id", "name", "qty", "scalable"],
             },
           },
         },
@@ -112,7 +112,7 @@ const RECIPE_SCHEMA: Anthropic.Tool.InputSchema = {
 export async function completeRecipe(rawText: string): Promise<StructuredRecipe> {
   const message = await anthropicClient().messages.create({
     model: MODEL,
-    max_tokens: 4096,
+    max_tokens: 8192,
     system:
       "あなたは日本語の料理レシピアシスタントです。断片的・不完全なレシピ文章を受け取り、" +
       "欠けている情報(分量・手順・人数・調理時間・難易度など)を一般的な家庭料理の常識に基づいて補い、" +

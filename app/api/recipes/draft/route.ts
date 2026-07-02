@@ -11,6 +11,15 @@ export async function POST(request: NextRequest) {
 
   try {
     const recipe = await completeRecipe(rawText);
+
+    if (!recipe.title?.trim()) {
+      await logError("POST /api/recipes/draft", new Error("AI response missing title"), { recipe });
+      return NextResponse.json(
+        { error: "AIの応答にタイトルが含まれていませんでした。もう一度お試しください。" },
+        { status: 502 }
+      );
+    }
+
     return NextResponse.json({ recipe });
   } catch (error) {
     await logError("POST /api/recipes/draft", error);

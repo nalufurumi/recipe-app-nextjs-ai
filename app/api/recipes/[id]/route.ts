@@ -49,6 +49,11 @@ export async function PUT(
   const { id } = await params;
   const body = (await request.json()) as { recipe: StructuredRecipe };
 
+  if (!body.recipe?.title?.trim()) {
+    await logError("PUT /api/recipes/[id]", new Error("missing title"), { id, body });
+    return NextResponse.json({ error: "タイトルが空のため保存できません" }, { status: 400 });
+  }
+
   const { data, error } = await supabaseServer()
     .from("recipes")
     .update({

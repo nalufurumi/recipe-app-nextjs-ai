@@ -42,6 +42,11 @@ export async function POST(request: NextRequest) {
     chefCheck: ChefCheck | null;
   };
 
+  if (!body.recipe?.title?.trim()) {
+    await logError("POST /api/recipes", new Error("missing title"), { body });
+    return NextResponse.json({ error: "タイトルが空のため保存できません" }, { status: 400 });
+  }
+
   const { data, error } = await supabaseServer()
     .from("recipes")
     .insert({
