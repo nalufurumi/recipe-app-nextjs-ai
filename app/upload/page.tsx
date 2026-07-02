@@ -83,10 +83,17 @@ export default function UploadPage() {
   }
 
   return (
-    <div className="upload-page">
-      <TabNav active="upload" />
+    <div className="upload-screen">
+      <div className="upload-hero">
+        <div className="hero-kicker upload-hero-kicker">CREATE RECIPE</div>
+        <h1 className="upload-hero-title">レシピを追加</h1>
+      </div>
+
+      <div className="app-tabnav-wrap">
+        <TabNav active="upload" />
+      </div>
+
       <div className="upload-inner">
-        <h1>レシピを追加</h1>
         <textarea
           value={rawText}
           onChange={(e) => setRawText(e.target.value)}

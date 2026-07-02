@@ -40,11 +40,11 @@ export default async function HomePage() {
             <div className="hero-kicker home-hero-kicker">MY RECIPE BOOK</div>
             <h1 className="home-hero-title">レシピ本</h1>
           </div>
-          <Nalu state="avatarOk" size={40} />
+          <Nalu state="avatarOk" size={64} />
         </div>
       </div>
 
-      <div className="home-tabnav-wrap">
+      <div className="app-tabnav-wrap">
         <TabNav active="home" />
       </div>
 
