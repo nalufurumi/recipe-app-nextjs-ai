@@ -39,8 +39,8 @@ export default async function HomePage() {
       <div className="home-hero">
         <div className="home-hero-top">
           <div>
-            <div className="hero-kicker home-hero-kicker">MY RECIPE BOOK</div>
-            <h1 className="home-hero-title">レシピ本</h1>
+            <div className="hero-kicker home-hero-kicker">EVERYONE&apos;S RECIPES</div>
+            <h1 className="home-hero-title">みんなのレシピ</h1>
           </div>
           <Nalu state="avatarOk" size={64} />
         </div>

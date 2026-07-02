@@ -182,7 +182,7 @@ export default function UploadPage() {
         {recipe && (
           <div className="upload-actions">
             <button className="btn btn-primary" onClick={handleSave} disabled={stage !== "idle"}>
-              {stage === "saving" ? "保存中..." : stage === "saved" ? "保存しました！" : "レシピ本に保存する"}
+              {stage === "saving" ? "保存中..." : stage === "saved" ? "保存しました！" : "みんなのレシピに保存する"}
             </button>
           </div>
         )}

@@ -41,7 +41,7 @@ function LoginForm() {
   return (
     <div className="login-screen">
       <form className="login-card" onSubmit={handleSubmit}>
-        <h1>レシピ本</h1>
+        <h1>みんなのレシピ</h1>
         <p>パスワードを入力してください</p>
         <input
           type="password"

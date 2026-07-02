@@ -93,12 +93,9 @@ export default function RecipeScreen({
       <div className="sheet">
         <div className="sheet-inner">
           <p className="lede">{recipe.description}</p>
+          <p className="posted-by">投稿者: Nalu</p>
 
           <div className="chips">
-            <div className="chip">
-              <div className="chip-label">SERVES</div>
-              <div className="chip-value">{recipe.servings}</div>
-            </div>
             <div className="chip">
               <div className="chip-label">TIME</div>
               <div className="chip-value">{recipe.time}</div>
