@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { supabaseServer } from "@/lib/supabase";
+import { isAuthenticated } from "@/lib/auth";
 import type { Recipe, ChefCheck } from "@/lib/types";
 import TabNav from "./TabNav";
 import Nalu from "./Nalu";
@@ -31,6 +32,7 @@ export default async function HomePage() {
     .order("created_at", { ascending: false });
 
   const recipes = (data ?? []).map(rowToRecipe);
+  const authed = await isAuthenticated();
 
   return (
     <div className="home-screen page-container">
@@ -45,7 +47,7 @@ export default async function HomePage() {
       </div>
 
       <div className="app-tabnav-wrap">
-        <TabNav active="home" />
+        <TabNav active="home" authed={authed} />
       </div>
 
       <div className="home-list-wrap">
