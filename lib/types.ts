@@ -2,6 +2,11 @@ export type IngredientItem = {
   id: string;
   name: string;
   qty: string;
+  // Optional scaling info. Absent/undefined on recipes saved before this
+  // feature existed — treat as non-scalable (qty is shown as-is).
+  scalable?: boolean;
+  baseAmount?: number | null;
+  unit?: string | null;
 };
 
 export type IngredientGroup = {

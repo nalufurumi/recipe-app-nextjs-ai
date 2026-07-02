@@ -42,9 +42,25 @@ const RECIPE_SCHEMA: Anthropic.Tool.InputSchema = {
               properties: {
                 id: { type: "string" },
                 name: { type: "string" },
-                qty: { type: "string" },
+                qty: {
+                  type: "string",
+                  description: "表示用テキスト。今まで通り '200g' '1/2本' '少々' などをそのまま入れる",
+                },
+                scalable: {
+                  type: "boolean",
+                  description:
+                    "qtyが具体的な数値+単位として解釈できる場合はtrue。「少々」「お好みで」「適量」など曖昧な表現はfalse",
+                },
+                baseAmount: {
+                  type: ["number", "null"],
+                  description: "scalableがtrueの場合の基準数値(例: 200)。falseの場合はnull",
+                },
+                unit: {
+                  type: ["string", "null"],
+                  description: "scalableがtrueの場合の単位(例: 'g' '本' '個' 'ml' '大さじ')。falseの場合はnull",
+                },
               },
-              required: ["id", "name", "qty"],
+              required: ["id", "name", "qty", "scalable", "baseAmount", "unit"],
             },
           },
         },
@@ -100,7 +116,12 @@ export async function completeRecipe(rawText: string): Promise<StructuredRecipe>
     system:
       "あなたは日本語の料理レシピアシスタントです。断片的・不完全なレシピ文章を受け取り、" +
       "欠けている情報(分量・手順・人数・調理時間・難易度など)を一般的な家庭料理の常識に基づいて補い、" +
-      "完全な構造化レシピを submit_recipe ツールで返してください。補った箇所は assumptions に列挙してください。",
+      "完全な構造化レシピを submit_recipe ツールで返してください。補った箇所は assumptions に列挙してください。\n\n" +
+      "各材料には、人数に応じた分量スケーリングのための情報も付けてください: " +
+      "qtyが「200g」「2本」「大さじ1」のような具体的な数値+単位として解釈できる場合は scalable: true とし、" +
+      "baseAmount にその数値、unit にその単位を入れてください。" +
+      "一方「少々」「お好みで」「適量」「1/2本(お好みで調整)」のように曖昧・非数値的な表現は、" +
+      "無理に数値化せず scalable: false とし、baseAmount と unit は null にしてください。",
     messages: [{ role: "user", content: rawText }],
     tools: [
       {
