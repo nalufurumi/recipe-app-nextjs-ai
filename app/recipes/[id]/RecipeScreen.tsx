@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Recipe } from "@/lib/types";
 
@@ -12,15 +12,21 @@ export default function RecipeScreen({ recipe }: { recipe: Recipe }) {
   const [checked, setChecked] = useState<Record<string, boolean>>({});
   const [cooking, setCooking] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
+  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const lastStep = recipe.steps.length - 1;
   const isFinalStep = cooking && stepIndex >= lastStep;
+
+  useEffect(() => {
+    if (!cooking) return;
+    stepRefs.current[stepIndex]?.scrollIntoView({ block: "center", behavior: "smooth" });
+  }, [cooking, stepIndex]);
 
   function toggle(id: string) {
     setChecked((prev) => ({ ...prev, [id]: !prev[id] }));
   }
 
-  function handleCtaClick() {
+  function handleForwardClick() {
     if (!cooking) {
       setCooking(true);
       setStepIndex(0);
@@ -30,6 +36,11 @@ export default function RecipeScreen({ recipe }: { recipe: Recipe }) {
     } else {
       setStepIndex((i) => Math.min(i + 1, lastStep));
     }
+  }
+
+  function handleBackClick() {
+    if (!cooking || stepIndex === 0) return;
+    setStepIndex((i) => Math.max(i - 1, 0));
   }
 
   return (
@@ -104,8 +115,15 @@ export default function RecipeScreen({ recipe }: { recipe: Recipe }) {
             {recipe.steps.map((step, i) => {
               const isActive = cooking && i === stepIndex;
               const isDone = cooking && i < stepIndex;
+              const isDimmed = cooking && !isActive;
               return (
-                <div className={`step ${isActive ? "active" : ""} ${isDone ? "done" : ""}`} key={step.n}>
+                <div
+                  className={`step ${isActive ? "active" : ""} ${isDimmed ? "dimmed" : ""}`}
+                  key={step.n}
+                  ref={(el) => {
+                    stepRefs.current[i] = el;
+                  }}
+                >
                   <div className="step-num">{isDone ? "✓" : step.n}</div>
                   <div>
                     <div className="step-title">{step.title}</div>
@@ -132,10 +150,21 @@ export default function RecipeScreen({ recipe }: { recipe: Recipe }) {
       </div>
 
       <div className="cta-bar">
-        <button className="cta-btn" onClick={handleCtaClick}>
-          <span className="cta-icon">{isFinalStep ? "🎉" : "◷"}</span>
-          {!cooking ? "調理をはじめる" : isFinalStep ? "完成！" : "次に進む"}
-        </button>
+        {cooking ? (
+          <div className="cta-row">
+            <button className="cta-btn cta-btn-back" onClick={handleBackClick} disabled={stepIndex === 0}>
+              戻る
+            </button>
+            <button className="cta-btn cta-btn-forward" onClick={handleForwardClick}>
+              <span className="cta-icon">{isFinalStep ? "🎉" : "◷"}</span>
+              {isFinalStep ? "完成！" : "次に進む"}
+            </button>
+          </div>
+        ) : (
+          <button className="cta-btn" onClick={handleForwardClick}>
+            <span className="cta-icon">◷</span> 調理をはじめる
+          </button>
+        )}
       </div>
     </div>
   );

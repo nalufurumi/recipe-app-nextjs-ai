@@ -538,8 +538,8 @@ a { color: inherit; text-decoration: none; }
   box-shadow: inset 0 0 0 1.5px #B23A2E;
 }
 
-.step.done {
-  opacity: 0.5;
+.step.dimmed {
+  opacity: 0.45;
 }
 
 .step-num {
@@ -556,7 +556,7 @@ a { color: inherit; text-decoration: none; }
   font-size: 22px;
 }
 
-.step.done .step-num {
+.step.dimmed .step-num {
   background: #A79C89;
   font-size: 16px;
 }
@@ -566,10 +566,6 @@ a { color: inherit; text-decoration: none; }
   font-size: 15px;
   font-weight: 600;
   color: #2A2521;
-}
-
-.step.done .step-title {
-  text-decoration: line-through;
 }
 
 .step-body {
@@ -633,6 +629,30 @@ a { color: inherit; text-decoration: none; }
   font-weight: 500;
   letter-spacing: 0.04em;
   font-family: 'Noto Sans JP', sans-serif;
+}
+
+.cta-row {
+  display: flex;
+  gap: 10px;
+}
+
+.cta-row .cta-btn {
+  width: auto;
+}
+
+.cta-btn-back {
+  flex: 1;
+  background: #F5EEDF;
+  color: #2A2521;
+}
+
+.cta-btn-back:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.cta-btn-forward {
+  flex: 3;
 }
 
 .cta-icon {
