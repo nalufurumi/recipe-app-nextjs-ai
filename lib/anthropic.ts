@@ -24,7 +24,13 @@ function extractToolInput<T>(message: Anthropic.Message, toolName: string): T {
 const RECIPE_SCHEMA: Anthropic.Tool.InputSchema = {
   type: "object",
   properties: {
-    title: { type: "string" },
+    title: {
+      type: "string",
+      maxLength: 24,
+      description:
+        "装飾表現を含まない、20文字前後のシンプルな料理名(例: 'トマトチキンライス')。" +
+        "コンセプトやキャッチコピーはここに含めず description に回す",
+    },
     description: { type: "string" },
     servings: { type: "string" },
     time: { type: "string" },
@@ -114,13 +120,13 @@ export async function completeRecipe(rawText: string): Promise<StructuredRecipe>
     model: MODEL,
     max_tokens: 8192,
     system:
+      "重要: title は必ず装飾表現を含まない20文字前後のシンプルな料理名にしてください" +
+      "(例: 「三つ星ホテル風トマトチキンライス ― 至高の一皿」ではなく「トマトチキンライス」)。" +
+      "「Less is More」のようなコンセプトやキャッチコピー、副題は title に絶対に含めず、" +
+      "description の冒頭にサブタイトルのように含めてください。\n\n" +
       "あなたは日本語の料理レシピアシスタントです。断片的・不完全なレシピ文章を受け取り、" +
       "欠けている情報(分量・手順・人数・調理時間・難易度など)を一般的な家庭料理の常識に基づいて補い、" +
       "完全な構造化レシピを submit_recipe ツールで返してください。補った箇所は assumptions に列挙してください。\n\n" +
-      "title は装飾的な表現を避け、20文字前後のシンプルな料理名にしてください" +
-      "(例: 「三つ星ホテル風トマトチキンライス」ではなく「トマトチキンライス」)。" +
-      "「Less is More」のようなコンセプトやキャッチコピーは title に含めず、" +
-      "description の冒頭にサブタイトルのように含めてください。\n\n" +
       "各材料には、人数に応じた分量スケーリングのための情報も付けてください: " +
       "qtyが「200g」「2本」「大さじ1」のような具体的な数値+単位として解釈できる場合は scalable: true とし、" +
       "baseAmount にその数値、unit にその単位を入れてください。" +

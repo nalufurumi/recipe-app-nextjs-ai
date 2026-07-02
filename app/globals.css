@@ -929,19 +929,7 @@ a { color: inherit; text-decoration: none; }
   }
 
   .sheet-inner {
-    padding: clamp(24px, 4vw, 48px);
-  }
-
-  .cta-bar {
-    grid-column: 2;
-    grid-row: 2;
-    position: static;
-    left: auto;
-    transform: none;
-    width: auto;
-    max-width: none;
-    background: none;
-    padding: 0 clamp(24px, 4vw, 48px) clamp(24px, 4vw, 40px);
+    padding: clamp(24px, 4vw, 48px) clamp(24px, 4vw, 48px) 120px;
   }
 }
 
