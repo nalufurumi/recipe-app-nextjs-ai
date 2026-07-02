@@ -85,8 +85,13 @@ export default function UploadPage() {
   return (
     <div className="upload-screen">
       <div className="upload-hero">
-        <div className="hero-kicker upload-hero-kicker">CREATE RECIPE</div>
-        <h1 className="upload-hero-title">レシピを追加</h1>
+        <div className="upload-hero-top">
+          <div>
+            <div className="hero-kicker upload-hero-kicker">CREATE RECIPE</div>
+            <h1 className="upload-hero-title">レシピを追加</h1>
+          </div>
+          <Nalu state="avatarOk" size={64} />
+        </div>
       </div>
 
       <div className="app-tabnav-wrap">

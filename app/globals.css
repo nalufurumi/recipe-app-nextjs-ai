@@ -218,6 +218,12 @@ a { color: inherit; text-decoration: none; }
   padding: 30px 24px 22px;
 }
 
+.upload-hero-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
 .upload-hero-kicker {
   color: #E29A87;
 }
