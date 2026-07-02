@@ -203,7 +203,7 @@ a { color: inherit; text-decoration: none; }
 
 @media (min-width: 768px) {
   .home-screen {
-    max-width: min(94vw, 1200px);
+    max-width: min(94vw, 1400px);
   }
 
   .home-hero,
@@ -293,7 +293,7 @@ a { color: inherit; text-decoration: none; }
 
 @media (min-width: 768px) {
   .upload-screen {
-    max-width: min(94vw, 1200px);
+    max-width: min(94vw, 1400px);
   }
 
   .upload-hero {
@@ -317,7 +317,7 @@ a { color: inherit; text-decoration: none; }
   }
 
   .upload-inner textarea {
-    min-height: clamp(220px, 30vw, 300px);
+    min-height: clamp(200px, 22vw, 280px);
   }
 }
 
@@ -754,7 +754,7 @@ a { color: inherit; text-decoration: none; }
 
 @media (min-width: 768px) {
   .screen {
-    max-width: min(94vw, 1200px);
+    max-width: min(94vw, 1400px);
     display: grid;
     grid-template-columns: minmax(280px, 34%) 1fr;
     align-items: start;
