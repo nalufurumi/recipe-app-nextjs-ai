@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import type { ChefCheck, StructuredRecipe } from "@/lib/types";
 import TabNav from "../TabNav";
+import Nalu from "../Nalu";
 
 export default function UploadPage() {
   const router = useRouter();
@@ -95,6 +96,13 @@ export default function UploadPage() {
                 : "AIで完成させる"}
           </button>
         </div>
+
+        {stage === "completing" && (
+          <div className="nalu-panel">
+            <Nalu state="thinking" size={76} bob />
+            <p>Naluがレシピを考え中...</p>
+          </div>
+        )}
 
         {error && <div className="chef-check warn"><h3>{error}</h3></div>}
 
