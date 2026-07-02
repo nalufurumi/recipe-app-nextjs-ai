@@ -109,6 +109,12 @@ export default function RecipeScreen({ recipe }: { recipe: Recipe }) {
           </div>
         </div>
       </div>
+
+      <div className="cta-bar">
+        <button className="cta-btn" onClick={() => setTab("steps")}>
+          <span className="cta-icon">◷</span> 調理をはじめる
+        </button>
+      </div>
     </div>
   );
 }

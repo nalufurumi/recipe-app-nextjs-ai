@@ -388,7 +388,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .sheet-inner {
-  padding: 22px 24px 60px;
+  padding: 22px 24px 120px;
 }
 
 .lede {
@@ -581,4 +581,37 @@ a { color: inherit; text-decoration: none; }
   line-height: 1.95;
   color: #6A6154;
   font-weight: 300;
+}
+
+.cta-bar {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  padding: 16px 24px 30px;
+  background: linear-gradient(180deg, rgba(252,249,242,0) 0%, #FCF9F2 26%);
+}
+
+.cta-btn {
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  background: #2A2521;
+  color: #FCF9F2;
+  border-radius: 16px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+.cta-icon {
+  color: #F3C9BD;
 }
