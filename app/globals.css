@@ -526,6 +526,20 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   gap: 16px;
   margin-bottom: 22px;
+  padding: 10px;
+  margin-left: -10px;
+  margin-right: -10px;
+  border-radius: 14px;
+  transition: background .2s ease, opacity .2s ease;
+}
+
+.step.active {
+  background: #F5EEDF;
+  box-shadow: inset 0 0 0 1.5px #B23A2E;
+}
+
+.step.done {
+  opacity: 0.5;
 }
 
 .step-num {
@@ -542,11 +556,20 @@ a { color: inherit; text-decoration: none; }
   font-size: 22px;
 }
 
+.step.done .step-num {
+  background: #A79C89;
+  font-size: 16px;
+}
+
 .step-title {
   font-family: 'Shippori Mincho B1', serif;
   font-size: 15px;
   font-weight: 600;
   color: #2A2521;
+}
+
+.step.done .step-title {
+  text-decoration: line-through;
 }
 
 .step-body {

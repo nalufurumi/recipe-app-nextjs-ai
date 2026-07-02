@@ -10,9 +10,26 @@ export default function RecipeScreen({ recipe }: { recipe: Recipe }) {
   const router = useRouter();
   const [tab, setTab] = useState<Tab>("ing");
   const [checked, setChecked] = useState<Record<string, boolean>>({});
+  const [cooking, setCooking] = useState(false);
+  const [stepIndex, setStepIndex] = useState(0);
+
+  const lastStep = recipe.steps.length - 1;
+  const isFinalStep = cooking && stepIndex >= lastStep;
 
   function toggle(id: string) {
     setChecked((prev) => ({ ...prev, [id]: !prev[id] }));
+  }
+
+  function handleCtaClick() {
+    if (!cooking) {
+      setCooking(true);
+      setStepIndex(0);
+      setTab("steps");
+    } else if (isFinalStep) {
+      setCooking(false);
+    } else {
+      setStepIndex((i) => Math.min(i + 1, lastStep));
+    }
   }
 
   return (
@@ -84,15 +101,19 @@ export default function RecipeScreen({ recipe }: { recipe: Recipe }) {
           </div>
 
           <div className={`panel ${tab !== "steps" ? "hidden" : ""}`}>
-            {recipe.steps.map((step) => (
-              <div className="step" key={step.n}>
-                <div className="step-num">{step.n}</div>
-                <div>
-                  <div className="step-title">{step.title}</div>
-                  <p className="step-body">{step.body}</p>
+            {recipe.steps.map((step, i) => {
+              const isActive = cooking && i === stepIndex;
+              const isDone = cooking && i < stepIndex;
+              return (
+                <div className={`step ${isActive ? "active" : ""} ${isDone ? "done" : ""}`} key={step.n}>
+                  <div className="step-num">{isDone ? "✓" : step.n}</div>
+                  <div>
+                    <div className="step-title">{step.title}</div>
+                    <p className="step-body">{step.body}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           <div className={`panel ${tab !== "tips" ? "hidden" : ""}`} data-panel="tips">
@@ -111,8 +132,9 @@ export default function RecipeScreen({ recipe }: { recipe: Recipe }) {
       </div>
 
       <div className="cta-bar">
-        <button className="cta-btn" onClick={() => setTab("steps")}>
-          <span className="cta-icon">◷</span> 調理をはじめる
+        <button className="cta-btn" onClick={handleCtaClick}>
+          <span className="cta-icon">{isFinalStep ? "🎉" : "◷"}</span>
+          {!cooking ? "調理をはじめる" : isFinalStep ? "完成！" : "次に進む"}
         </button>
       </div>
     </div>
