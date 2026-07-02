@@ -295,6 +295,26 @@ a { color: inherit; text-decoration: none; }
   color: #A79C89;
 }
 
+@media (min-width: 768px) {
+  .upload-screen {
+    max-width: 720px;
+  }
+
+  .upload-hero {
+    padding-left: 56px;
+    padding-right: 56px;
+  }
+
+  .upload-inner {
+    padding: 32px 56px 100px;
+    gap: 24px;
+  }
+
+  .upload-inner textarea {
+    min-height: 260px;
+  }
+}
+
 .upload-actions {
   display: flex;
   gap: 12px;
@@ -724,6 +744,46 @@ a { color: inherit; text-decoration: none; }
 
 .cta-icon {
   color: #F3C9BD;
+}
+
+@media (min-width: 768px) {
+  .screen {
+    max-width: 1040px;
+    display: grid;
+    grid-template-columns: minmax(320px, 420px) 1fr;
+    align-items: start;
+  }
+
+  .hero {
+    height: 100dvh;
+    position: sticky;
+    top: 0;
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+
+  .sheet {
+    grid-column: 2;
+    grid-row: 1;
+    margin-top: 0;
+    border-radius: 0;
+  }
+
+  .sheet-inner {
+    padding: 40px 48px 40px;
+  }
+
+  .cta-bar {
+    grid-column: 2;
+    grid-row: 2;
+    position: static;
+    left: auto;
+    transform: none;
+    width: auto;
+    max-width: none;
+    background: none;
+    padding: 0 48px 40px;
+  }
 }
 
 /* ---------- dev tools ---------- */
