@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { IngredientItem, Recipe } from "@/lib/types";
+import Nalu from "../../Nalu";
 
 type Tab = "ing" | "steps" | "tips";
 
@@ -33,7 +34,9 @@ export default function RecipeScreen({
   const [checked, setChecked] = useState<Record<string, boolean>>({});
   const [cooking, setCooking] = useState(false);
   const [stepIndex, setStepIndex] = useState(0);
+  const [celebrating, setCelebrating] = useState(false);
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const celebrateTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const baseServings = parseServingsNumber(recipe.servings);
   const [servings, setServings] = useState(baseServings ?? 1);
@@ -50,13 +53,20 @@ export default function RecipeScreen({
     setChecked((prev) => ({ ...prev, [id]: !prev[id] }));
   }
 
+  function endCooking() {
+    if (celebrateTimeoutRef.current) clearTimeout(celebrateTimeoutRef.current);
+    setCelebrating(false);
+    setCooking(false);
+  }
+
   function handleForwardClick() {
     if (!cooking) {
       setCooking(true);
       setStepIndex(0);
       setTab("steps");
     } else if (isFinalStep) {
-      setCooking(false);
+      setCelebrating(true);
+      celebrateTimeoutRef.current = setTimeout(endCooking, 1000);
     } else {
       setStepIndex((i) => Math.min(i + 1, lastStep));
     }
@@ -220,6 +230,23 @@ export default function RecipeScreen({
           </button>
         )}
       </div>
+
+      {celebrating && (
+        <div className="celebrate-overlay" onClick={endCooking}>
+          <div className="celebrate-avatar-wrap">
+            <span className="sparkle sparkle-1">✨</span>
+            <span className="sparkle sparkle-2">✨</span>
+            <span className="sparkle sparkle-3">✨</span>
+            <span className="sparkle sparkle-4">✨</span>
+            <Nalu state="happy" size={160} />
+          </div>
+          <p>
+            よくできました！
+            <br />
+            お疲れさまでした！
+          </p>
+        </div>
+      )}
     </div>
   );
 }
