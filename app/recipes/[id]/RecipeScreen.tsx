@@ -66,7 +66,7 @@ export default function RecipeScreen({
       setTab("steps");
     } else if (isFinalStep) {
       setCelebrating(true);
-      celebrateTimeoutRef.current = setTimeout(endCooking, 1000);
+      celebrateTimeoutRef.current = setTimeout(endCooking, 1800);
     } else {
       setStepIndex((i) => Math.min(i + 1, lastStep));
     }
