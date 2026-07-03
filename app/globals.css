@@ -154,6 +154,11 @@ a { color: inherit; text-decoration: none; }
   white-space: nowrap;
 }
 
+.landing-nav-link-active {
+  color: #B23A2E;
+  font-weight: 600;
+}
+
 .landing-nav-cta {
   background: #2A2521;
   color: #FCF9F2;
@@ -318,6 +323,12 @@ a { color: inherit; text-decoration: none; }
   text-align: center;
 }
 
+.landing-howto-page {
+  flex: 1;
+  margin-top: clamp(56px, 8vw, 100px);
+  margin-bottom: clamp(56px, 8vw, 100px);
+}
+
 .landing-howto-kicker {
   display: block;
 }
@@ -407,48 +418,117 @@ a { color: inherit; text-decoration: none; }
   margin: 0 auto 4px;
 }
 
+.home-greeting {
+  flex: none;
+  margin: clamp(10px, 2vw, 16px) clamp(20px, 4vw, 48px) 0;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #E4DCCC;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.home-greeting-title {
+  font-family: 'Shippori Mincho B1', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #2A2521;
+}
+
+.home-greeting-sub {
+  margin-top: 2px;
+  font-size: 12px;
+  color: #A79C89;
+}
+
 .home-list-wrap {
   flex: 1;
-  padding: clamp(14px, 2vw, 18px) clamp(20px, 4vw, 48px) 100px;
+  padding: clamp(18px, 2vw, 24px) clamp(20px, 4vw, 48px) 100px;
 }
 
 .home-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 360px));
-  justify-content: center;
-  gap: clamp(14px, 2vw, 24px);
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: clamp(16px, 2vw, 22px);
 }
 
 .home-card {
   display: flex;
-  background: #FCF9F2;
-  border-radius: 14px;
-  box-shadow: 0 16px 30px -24px rgba(60,45,30,0.5);
+  flex-direction: column;
+  background: #FFFFFF;
+  border-radius: 18px;
+  box-shadow: 0 14px 30px -18px rgba(60, 45, 30, 0.35);
   overflow: hidden;
 }
 
-.home-card-spine {
-  width: 8px;
+.home-card-photo {
+  height: 150px;
   flex: none;
-  background: #B23A2E;
+  position: relative;
+}
+
+.home-card-photo-0 { background: repeating-linear-gradient(135deg, #EAD9B8 0 14px, #E3CBA2 14px 28px); }
+.home-card-photo-1 { background: repeating-linear-gradient(135deg, #E7C9BE 0 14px, #DFB6A9 14px 28px); }
+.home-card-photo-2 { background: repeating-linear-gradient(135deg, #D9E0C4 0 14px, #CBD5AE 14px 28px); }
+.home-card-photo-3 { background: repeating-linear-gradient(135deg, #D9C7DB 0 14px, #C9AECC 14px 28px); }
+.home-card-photo-4 { background: repeating-linear-gradient(135deg, #E9C7B8 0 14px, #DFAD97 14px 28px); }
+
+.home-card-level {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  max-width: calc(100% - 20px);
+  background: rgba(252, 249, 242, 0.92);
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 10.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.level-advanced { color: #B23A2E; }
+.level-mid { color: #C08A2E; }
+.level-easy { color: #5C8A4E; }
+
+.home-card-checked {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(42, 37, 33, 0.55);
+  backdrop-filter: blur(2px);
+  border-radius: 999px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 9.5px;
+  color: #FCF9F2;
+  font-weight: 600;
 }
 
 .home-card-body {
   flex: 1;
-  padding: 16px 18px;
+  padding: 16px 18px 18px;
+  display: flex;
+  flex-direction: column;
 }
 
 .home-card-body h2 {
   font-family: 'Shippori Mincho B1', serif;
-  font-size: 18px;
+  font-size: 16px;
+  font-weight: 600;
   margin: 0;
   color: #2A2521;
+  line-height: 1.4;
 }
 
 .home-card-meta {
-  margin-top: 10px;
+  margin-top: auto;
+  padding-top: 14px;
   display: flex;
-  gap: 14px;
+  gap: 12px;
   font-size: 11px;
   color: #A79C89;
 }
@@ -464,6 +544,33 @@ a { color: inherit; text-decoration: none; }
   flex-direction: column;
   align-items: center;
   gap: 14px;
+}
+
+@media (max-width: 640px) {
+  .home-list {
+    grid-template-columns: 1fr;
+  }
+
+  .home-card {
+    flex-direction: row;
+  }
+
+  .home-card-photo {
+    width: 110px;
+    height: auto;
+  }
+
+  .home-card-body {
+    padding: 12px 14px;
+  }
+
+  .home-card-body h2 {
+    font-size: 14px;
+  }
+
+  .home-card-checked {
+    display: none;
+  }
 }
 
 @media (min-width: 768px) {
