@@ -159,7 +159,7 @@ export default function RecipeScreen({
                   >
                     −
                   </button>
-                  <span className="servings-stepper-value">{servings}人前</span>
+                  <span className="servings-stepper-value" key={servings}>{servings}人前</span>
                   <button
                     className="stepper-btn"
                     onClick={() => setServings((s) => Math.min(20, s + 1))}
