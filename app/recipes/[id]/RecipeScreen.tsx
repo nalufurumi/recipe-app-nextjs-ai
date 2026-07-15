@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import type { IngredientItem, Recipe } from "@/lib/types";
 import Nalu from "../../Nalu";
 
@@ -86,6 +87,16 @@ export default function RecipeScreen({
       )}
 
       <div className="hero">
+        {recipe.image_url && (
+          <Image
+            src={recipe.image_url}
+            alt=""
+            fill
+            priority
+            sizes="(max-width: 900px) 100vw, 640px"
+            style={{ objectFit: "cover" }}
+          />
+        )}
         <div className="hero-topbar">
           <button className="round-btn" onClick={() => router.push("/recipes")} aria-label="戻る">
             ‹

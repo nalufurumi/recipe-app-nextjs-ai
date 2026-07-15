@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { supabaseServer } from "@/lib/supabase";
 import { isAuthenticated } from "@/lib/auth";
 import type { Recipe, ChefCheck } from "@/lib/types";
@@ -22,6 +23,7 @@ function rowToRecipe(row: Record<string, unknown>): Recipe {
     raw_input: row.raw_input as string,
     chef_check: (row.chef_check as ChefCheck | null) ?? null,
     created_at: row.created_at as string,
+    image_url: (row.image_url as string | null) ?? null,
   };
 }
 
@@ -42,7 +44,7 @@ export default async function RecipeListPage() {
 
       {recipes.length > 0 && (
         <div className="home-greeting">
-          <Nalu state="ok" size={52} />
+          <Nalu state="ok" size={52} bob />
           <div className="home-greeting-copy">
             <div className="home-greeting-title">こんにちは。今日はどれを作ろうか。</div>
             <div className="home-greeting-sub">全 {recipes.length} 品を、なるしぇふが磨き上げ済み</div>
@@ -60,7 +62,16 @@ export default async function RecipeListPage() {
           <div className="home-list">
             {recipes.map((r, i) => (
               <Link className="home-card" key={r.id} href={`/recipes/${r.id}`}>
-                <div className={`home-card-photo home-card-photo-${i % 5}`}>
+                <div className={`home-card-photo ${r.image_url ? "" : `home-card-photo-${i % 5}`}`}>
+                  {r.image_url && (
+                    <Image
+                      src={r.image_url}
+                      alt=""
+                      fill
+                      sizes="(max-width: 640px) 110px, 33vw"
+                      style={{ objectFit: "cover" }}
+                    />
+                  )}
                   <span className={`home-card-level level-${levelTone(r.level)}`}>{levelLabel(r.level)}</span>
                   {r.chef_check?.feasible && (
                     <span className="home-card-checked">

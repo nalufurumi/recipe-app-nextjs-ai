@@ -7,6 +7,7 @@ create table if not exists recipes (
   servings text not null default '',
   time text not null default '',
   level text not null default '',
+  image_url text,
   ingredient_groups jsonb not null default '[]',
   steps jsonb not null default '[]',
   tips jsonb not null default '[]',

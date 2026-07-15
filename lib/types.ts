@@ -48,4 +48,5 @@ export type Recipe = StructuredRecipe & {
   raw_input: string;
   chef_check: ChefCheck | null;
   created_at: string;
+  image_url: string | null;
 };

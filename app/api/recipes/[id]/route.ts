@@ -20,6 +20,7 @@ function rowToRecipe(row: Record<string, unknown>): Recipe {
     raw_input: row.raw_input as string,
     chef_check: (row.chef_check as ChefCheck | null) ?? null,
     created_at: row.created_at as string,
+    image_url: (row.image_url as string | null) ?? null,
   };
 }
 

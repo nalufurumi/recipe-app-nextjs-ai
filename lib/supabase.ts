@@ -7,6 +7,7 @@ type RecipeRow = {
   servings: string;
   time: string;
   level: string;
+  image_url?: string | null;
   ingredient_groups: unknown;
   steps: unknown;
   tips: unknown;
